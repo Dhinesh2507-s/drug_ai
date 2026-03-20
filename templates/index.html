@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Drug Discovery Pipeline (HPC Edition)</title>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/style.css">
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- SMILES Drawer JS Library -->
+    <script type="text/javascript" src="https://unpkg.com/smiles-drawer@1.0.10/dist/smiles-drawer.min.js"></script>
+</head>
+<body>
+    <div class="hpc-layout">
+        <!-- Sidebar Pipeline Tracker -->
+        <aside class="pipeline-sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-server"></i> HPC Discovery
+            </div>
+            <div class="pipeline-steps">
+                <div class="step" id="step-init">
+                    <i class="fa-solid fa-power-off"></i> <span>System Ready</span>
+                </div>
+                <div class="step" id="step-gnn">
+                    <i class="fa-solid fa-network-wired"></i> <span>GNN Generation</span>
+                    <div class="step-progress"></div>
+                </div>
+                <div class="step" id="step-prop">
+                    <i class="fa-solid fa-microscope"></i> <span>Property Prediction</span>
+                    <div class="step-progress"></div>
+                </div>
+                <div class="step" id="step-dock">
+                    <i class="fa-solid fa-puzzle-piece"></i> <span>Protein Docking</span>
+                    <div class="step-progress"></div>
+                </div>
+                <div class="step" id="step-db">
+                    <i class="fa-solid fa-database"></i> <span>Bio DB Integration</span>
+                    <div class="step-progress"></div>
+                </div>
+            </div>
+            
+            <div class="status-console" id="console-output">
+                > System initialized.<br>
+                > Awaiting target selection...
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="controls">
+                    <select id="target-protein" class="glass-select">
+                        <option value="Cancer">Target: Cancer Kinases (EGFR)</option>
+                        <option value="COVID">Target: COVID Protease (Mpro)</option>
+                        <option value="Diabetes">Target: Diabetes (SGLT2)</option>
+                    </select>
+                    <button id="generate-btn" class="glow-btn" onclick="startPipeline()">
+                        <i class="fa-solid fa-bolt"></i> Execute Pipeline
+                    </button>
+                </div>
+            </header>
+            
+            <div id="results-area" class="results-area hidden">
+                <div class="results-header">
+                    <h2>Pipeline Complete: Top Candidates Identified</h2>
+                    <button class="outline-btn" onclick="downloadJSON()"><i class="fa-solid fa-file-export"></i> Export Data</button>
+                </div>
+                <!-- Molecule Cards Grid -->
+                <div id="molecules-grid" class="cards-grid">
+                    <!-- Cards will be dynamically inserted here by script.js -->
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Link to custom main logic -->
+    <script src="/static/script.js"></script>
+</body>
+</html>

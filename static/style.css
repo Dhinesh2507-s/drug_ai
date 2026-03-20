@@ -1,0 +1,355 @@
+/* 
+style.css
+Custom sleek, dark-theme styling inspired by modern web apps.
+Provides clean layout, smooth card hover effects, and responsive grids. 
+*/
+
+:root {
+    --bg-base: #0a0e17; /* Very deep techy blue/black */
+    --bg-glass: rgba(16, 24, 39, 0.7);
+    --border-glass: rgba(255, 255, 255, 0.1);
+    --accent-glow: #00f0ff; /* Neon cyan */
+    --accent-secondary: #7000ff; /* Deep purple */
+    --text-main: #e2e8f0;
+    --text-muted: #94a3b8;
+    --success: #10b981;
+    --warning: #f59e0b;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    overflow: hidden; /* App-like feel */
+}
+
+/* Glassmorphism utils */
+.glass-panel {
+    background: var(--bg-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-glass);
+    border-radius: 16px;
+}
+
+.hpc-layout {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.pipeline-sidebar {
+    width: 280px;
+    background: rgba(10, 14, 23, 0.95);
+    border-right: 1px solid var(--border-glass);
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    z-index: 10;
+}
+
+.brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--accent-glow);
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.pipeline-steps {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    color: var(--text-muted);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.step i {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.step span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.step.active {
+    color: var(--accent-glow);
+}
+.step.completed {
+    color: var(--success);
+}
+
+.step-progress {
+    height: 2px;
+    background: var(--border-glass);
+    margin-top: 0.8rem;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.step-progress::after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: var(--accent-glow);
+    transition: width 0.3s ease;
+}
+
+.step.active .step-progress::after {
+    animation: loadingBar 2s infinite ease-in-out;
+}
+.step.completed .step-progress::after {
+    width: 100%;
+    background: var(--success);
+    animation: none;
+}
+
+@keyframes loadingBar {
+    0% { width: 0%; transform: translateX(-100%); }
+    50% { width: 100%; transform: translateX(0); }
+    100% { width: 100%; transform: translateX(100%); }
+}
+
+.status-console {
+    background: rgba(0,0,0,0.5);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 1rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+    color: #10b981;
+    height: 150px;
+    overflow-y: auto;
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background: radial-gradient(circle at top right, rgba(112, 0, 255, 0.1), transparent 40%);
+}
+
+.top-bar {
+    padding: 2rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    background: var(--bg-glass);
+    padding: 0.8rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-glass);
+    backdrop-filter: blur(10px);
+}
+
+.glass-select {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border-glass);
+    color: var(--text-main);
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    cursor: pointer;
+}
+.glass-select:focus {
+    border-color: var(--accent-glow);
+}
+
+.glass-select option {
+    background: var(--bg-base);
+    color: var(--text-main);
+}
+
+.glow-btn {
+    background: linear-gradient(135deg, var(--accent-glow), #00a2ff);
+    color: #000;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.glow-btn:hover {
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.7);
+    transform: translateY(-2px);
+}
+
+.outline-btn {
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border-glass);
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.outline-btn:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: var(--text-main);
+}
+
+/* Results */
+.hidden {
+    display: none !important;
+}
+
+.results-area {
+    padding: 0 2rem 2rem 2rem;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-glass);
+    padding-bottom: 1rem;
+}
+
+.results-header h2 {
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 2rem;
+}
+
+/* Molecule Card Design */
+.mol-card {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.mol-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    border-color: rgba(0, 240, 255, 0.4);
+}
+
+.card-header {
+    padding: 1rem 1.5rem;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-glass);
+}
+
+.smiles-text {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    color: var(--accent-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70%;
+}
+
+.score-badge {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--success);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.mol-canvas-container {
+    padding: 1.5rem;
+    background: white; /* Needs white background for drawn molecules */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.data-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.data-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.data-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    margin-bottom: 0.2rem;
+}
+
+.data-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+.data-value.docking { color: #ff3b30; }
+.data-value.db { color: #34c759; }
+
+.ai-insight {
+    background: rgba(112, 0, 255, 0.1);
+    border-left: 3px solid var(--accent-secondary);
+    padding: 1rem;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #e5e7eb;
+}
+.ai-insight i {
+    margin-right: 0.5rem;
+}
